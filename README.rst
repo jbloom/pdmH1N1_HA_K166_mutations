@@ -145,7 +145,14 @@ Here is that plot:
 
      The plot *annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in *annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 180 since `BEAST`_ uses consecutive numbering rather than the H3 numbering scheme.
 
+A hand annotated version of the plot (using Adobe Illustrator) was also made recoloring the branches. Here is that plot:
 
+  .. figure:: hand_annotated_maxcredtree.jpg
+     :alt: hand_annotated_maxcredtree.jpg
+     :width: 80%
+     :align: center
+
+     The plot *hand_annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in *hand_annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 166 per the H3 numbering scheme.
 
 .. _`Influenza Virus Resource`: https://www.ncbi.nlm.nih.gov/genomes/FLU/FLU.html
 .. _`Jesse Bloom`: http://research.fhcrc.org/bloom/en.html
