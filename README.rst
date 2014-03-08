@@ -2,7 +2,7 @@
 Mutations at site 166 in HA of human pandemic H1N1
 ----------------------------------------------------------
 
-Analysis of mutations at site 166 (H3 numbering, see `HA numbering`_ below) of the HA from human pandemic H1N1. 
+Analysis of mutations at site 166 (H3 numbering, see `HA numbering`_ below) of the HA from human pandemic H1N1. Also examines mutation frequencies of sites 156, 157, and 158 (H3 numbering).
 
 The input files, analysis scripts, and results can be downloaded `on GitHub`_.
 
@@ -13,18 +13,22 @@ This analysis was performed by `Jesse Bloom`_.
 
 Methods summary
 ----------------
-The occurrence of different amino-acid identities at HA residue 166 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the `Influenza Virus Resource`_ [Bao2008]_ as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at residue 166 for each partition was calculated and plotted. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition. 
-`BEAST`_ [Drummond2013]_ was then used to sample from the posterior distribution of phylogenetic trees with reconstructed sequences at the nodes, after date stamping the sequences, using a `JTT`_ [Jones1992]_ with a single rate category with an exponential prior, a strict molecular clock, and relatively uninformative coalescent-based prior over the tree. The figure shows a maximum clade credibility summary of the posterior distribution with branches colored according to the reconstructed amino-acid identity with the highest posterior probability at their descendent nodes. The tree was visually rendered using `FigTree`_. The input data and computer code used for this analysis can be found `on GitHub`_ at https://github.com/jbloom/pdmH1N1_HA_K166_mutations.
+The occurrence of different amino-acid identities at HA residues 166, 156, 157, and 158 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the `Influenza Virus Resource`_ [Bao2008]_ as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at each residue of interest for each partition was calculated and plotted. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition. 
+`BEAST`_ [Drummond2013]_ was then used to sample from the posterior distribution of phylogenetic trees with reconstructed sequences at the nodes, after date stamping the sequences, using a `JTT`_ [Jones1992]_ with a single rate category with an exponential prior, a strict molecular clock, and relatively uninformative coalescent-based prior over the tree. The figure shows a maximum clade credibility summary of the posterior distribution with branches colored according to the reconstructed amino-acid identity at site 166 with the highest posterior probability at their descendent nodes. The tree was visually rendered using `FigTree`_. The input data and computer code used for this analysis can be found `on GitHub`_ at https://github.com/jbloom/pdmH1N1_HA_K166_mutations.
 
 HA numbering
 -------------
-Various numbering schemes are in use for influenza HA (see `HA_numbering`_). The site examined here is:
+Various numbering schemes are in use for influenza HA (see `HA_numbering`_). The sites examined here are:
 
-* Residue 166 in the H3 numbering scheme (for example, as in PDB `4HMG`_).
+* Residue 166 in the H3 numbering scheme (for example, as in PDB `4HMG`_), which is residue 169 in the H1 numbering scheme (for example, as in PDB `4JTV`_) and residue 180 in sequential 1, 2, ... numbering of typical pandemic H1N1 HAs beginning with 1 at the N-terminal methionine.
 
-* Residue 169 in the H1 numbering scheme (for example, as in PDB `4JTV`_).
+* Residue 156 in H3 numbering, or 170 in sequential numbering.
 
-* Residue 180 in sequential 1, 2, ... numbering of typical pandemic H1N1 HAs beginning with 1 a the N-terminal methionine.
+* Residue 157 in H3 numbering, or 171 in sequential numbering.
+
+* Residue 158 in H3 numbering, or 172 in sequential numbering.
+
+
 
 Software used
 ---------------
@@ -80,29 +84,54 @@ The steps are:
 
 2) Get a subset of sequences for building the phylogenetic tree. Each year is broken into four partitions spanning months 1-3, 4-6, 7-9, and 10-12. For each partition, up to 10 sequences per year are randomly selected to be retained. These sequences are written to *selected_alignedproteins.fasta*. The reason for only keeping a subset of the sequence in this way is to have a sequence set small enough to build a phylogenetic tree without undue computational burden.
 
-3) Count the occurrences of different amino-acid identities at site 166 (H3 numbering, see `HA numbering`_) for each of the date partitions. The results are written to the file *partitioncounts.txt*. Here is the raw data in that file:
+3) Count the occurrences of different amino-acid identities at the sites of interest for each of the date partitions. The results for site N in sequential numbering (see `HA numbering`_)  are written to the file *partitioncounts_siteN.txt*. 
 
-    .. include:: partitioncounts.txt
+   Here is the raw data in the file for site 180 in sequential numbering (166 in H3 numbering), which is in the file *partitioncounts_site180.txt*:
+
+    .. include:: partitioncounts_site180.txt
        :literal:
+
 
 Plotting amino-acid fractions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The `Python`_ script *makeplot.py* is used to make a PDF plot (with `matplotlib`_) showing the frequencies of different amino acids at site 166 as a function of time. Run the script with::
+The `Python`_ script *makeplots.py* is used to make a PDF plot (with `matplotlib`_) showing the frequencies of different amino acids at each site of interest as a function of time. Run the script with::
 
-    python makeplot.py
+    python makeplots.py
 
-The resulting plot divides each year into four partitions (months 1-3, 4-6, 7-9, 10-12) as in *partitioncounts.txt*. The frequencies of different amino acids at site 166 is then shown for each of these partitions.
+The resulting plot divides each year into four partitions (months 1-3, 4-6, 7-9, 10-12) as in *partitioncounts_siteN.txt* files. The frequencies of different amino acids at the site are then shown for each of these partitions.
 
-The created plot is *aafracs.pdf*. A JPG version (lower quality, created with `ImageMagick convert`_ from the PDF) is also created as *aafracs.jpg*. Here is that plot:
+The created plots have names of the form *aafracs_site180.pdf* (again, using sequential rather than H3 numbering to name the sites). A JPG version (lower quality, created with `ImageMagick convert`_ from the PDF) is also created as *aafracs_site180.jpg*. Here are those plots:
 
-  .. figure:: aafracs.jpg
-     :alt: aafracs.jpg
+  .. figure:: aafracs_site180.jpg
+     :alt: aafracs_site180.jpg
      :width: 40%
      :align: center
 
-     The plot *aafracs.jpg* showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in *aafracs.pdf*.
+     The plot *aafracs_site180.jpg* showing the frequencies of different amino acids at site 166 (H3 numbering, site 180 sequential numbering). A higher quality image of this same plot is in *aafracs_site180.pdf*. This plot is a graphical display of the data in *partitioncounts_site180.txt*.
 
-This plot is a graphical display of the data in *partitioncounts.txt*.
+
+  .. figure:: aafracs_site170.jpg
+     :alt: aafracs_site170.jpg
+     :width: 40%
+     :align: center
+
+     The plot *aafracs_site170.jpg* showing the frequencies of different amino acids at site 156 (H3 numbering, site 170 sequential numbering). A higher quality image of this same plot is in *aafracs_site170.pdf*. This plot is a graphical display of the data in *partitioncounts_site170.txt*.
+
+
+  .. figure:: aafracs_site171.jpg
+     :alt: aafracs_site171.jpg
+     :width: 40%
+     :align: center
+
+     The plot *aafracs_site171.jpg* showing the frequencies of different amino acids at site 156 (H3 numbering, site 171 sequential numbering). A higher quality image of this same plot is in *aafracs_site171.pdf*. This plot is a graphical display of the data in *partitioncounts_site171.txt*.
+
+
+  .. figure:: aafracs_site172.jpg
+     :alt: aafracs_site172.jpg
+     :width: 40%
+     :align: center
+
+     The plot *aafracs_site172.jpg* showing the frequencies of different amino acids at site 156 (H3 numbering, site 172 sequential numbering). A higher quality image of this same plot is in *aafracs_site172.pdf*. This plot is a graphical display of the data in *partitioncounts_site172.txt*.
 
 
 Construction of phylogenetic tree
@@ -143,7 +172,7 @@ Here is that plot:
      :width: 80%
      :align: center
 
-     The plot *annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in *annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 180 since `BEAST`_ uses consecutive numbering rather than the H3 numbering scheme.
+     The plot *annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166 (H3 numbering). A higher quality image of this same plot is in *annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 180 since `BEAST`_ uses consecutive numbering rather than the H3 numbering scheme.
 
 A hand annotated version of the plot (using Adobe Illustrator) was also made recoloring the branches. Here is that plot:
 
@@ -152,7 +181,7 @@ A hand annotated version of the plot (using Adobe Illustrator) was also made rec
      :width: 80%
      :align: center
 
-     The plot *hand_annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in *hand_annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 166 per the H3 numbering scheme.
+     The plot *hand_annotated_maxcredtree.jpg* showing the frequencies of different amino acids at site 166 (H3 numbering). A higher quality image of this same plot is in *hand_annotated_maxcredtree.pdf*. In this plot, the residue is labeled as 166 per the H3 numbering scheme.
 
 .. _`Influenza Virus Resource`: https://www.ncbi.nlm.nih.gov/genomes/FLU/FLU.html
 .. _`Jesse Bloom`: http://research.fhcrc.org/bloom/en.html

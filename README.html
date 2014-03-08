@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
 <title>Mutations at site 166 in HA of human pandemic H1N1</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Id: $Id: html4css1.css 7056 2011-06-17 10:50:48Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -77,7 +77,7 @@ div.tip p.admonition-title {
 
 div.attention p.admonition-title, div.caution p.admonition-title,
 div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title, .code .error {
+div.warning p.admonition-title {
   color: red ;
   font-weight: bold ;
   font-family: sans-serif }
@@ -249,18 +249,9 @@ pre.address {
   margin-top: 0 ;
   font: inherit }
 
-pre.literal-block, pre.doctest-block, pre.math, pre.code {
+pre.literal-block, pre.doctest-block, pre.math {
   margin-left: 2em ;
   margin-right: 2em }
-
-pre.code .ln { color: grey; } /* line numbers */
-pre.code, code { background-color: #eeeeee }
-pre.code .comment, code .comment { color: #5C6576 }
-pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
-pre.code .literal.string, code .literal.string { color: #0C5404 }
-pre.code .name.builtin, code .name.builtin { color: #352B84 }
-pre.code .deleted, code .deleted { background-color: #DEB0A1}
-pre.code .inserted, code .inserted { background-color: #A3D289}
 
 span.classifier {
   font-family: sans-serif ;
@@ -313,21 +304,6 @@ table.docutils th.field-name, table.docinfo th.docinfo-name {
   white-space: nowrap ;
   padding-left: 0 }
 
-/* "booktabs" style (no vertical lines) */
-table.docutils.booktabs {
-  border: 0px;
-  border-top: 2px solid;
-  border-bottom: 2px solid;
-  border-collapse: collapse;
-}
-table.docutils.booktabs * {
-  border: 0px;
-}
-table.docutils.booktabs th {
-  border-bottom: thin solid;
-  text-align: left;
-}
-
 h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
 h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
   font-size: 100% }
@@ -341,7 +317,7 @@ ul.auto-toc {
 <div class="document" id="mutations-at-site-166-in-ha-of-human-pandemic-h1n1">
 <h1 class="title">Mutations at site 166 in HA of human pandemic H1N1</h1>
 
-<p>Analysis of mutations at site 166 (H3 numbering, see <a class="reference internal" href="#ha-numbering">HA numbering</a> below) of the HA from human pandemic H1N1.</p>
+<p>Analysis of mutations at site 166 (H3 numbering, see <a class="reference internal" href="#ha-numbering">HA numbering</a> below) of the HA from human pandemic H1N1. Also examines mutation frequencies of sites 156, 157, and 158 (H3 numbering).</p>
 <p>The input files, analysis scripts, and results can be downloaded <a class="reference external" href="https://github.com/jbloom/pdmH1N1_HA_K166_mutations">on GitHub</a>.</p>
 <p>This analysis was performed by <a class="reference external" href="http://research.fhcrc.org/bloom/en.html">Jesse Bloom</a>.</p>
 <div class="contents topic" id="contents">
@@ -361,16 +337,17 @@ ul.auto-toc {
 </div>
 <div class="section" id="methods-summary">
 <h1><a class="toc-backref" href="#id5">Methods summary</a></h1>
-<p>The occurrence of different amino-acid identities at HA residue 166 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/genomes/FLU/FLU.html">Influenza Virus Resource</a> <a class="citation-reference" href="#bao2008" id="id1">[Bao2008]</a> as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at residue 166 for each partition was calculated and plotted. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition.
-<a class="reference external" href="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> <a class="citation-reference" href="#drummond2013" id="id2">[Drummond2013]</a> was then used to sample from the posterior distribution of phylogenetic trees with reconstructed sequences at the nodes, after date stamping the sequences, using a <a class="reference external" href="http://www.ncbi.nlm.nih.gov/pubmed/1633570">JTT</a> <a class="citation-reference" href="#jones1992" id="id3">[Jones1992]</a> with a single rate category with an exponential prior, a strict molecular clock, and relatively uninformative coalescent-based prior over the tree. The figure shows a maximum clade credibility summary of the posterior distribution with branches colored according to the reconstructed amino-acid identity with the highest posterior probability at their descendent nodes. The tree was visually rendered using <a class="reference external" href="http://tree.bio.ed.ac.uk/software/figtree/">FigTree</a>. The input data and computer code used for this analysis can be found <a class="reference external" href="https://github.com/jbloom/pdmH1N1_HA_K166_mutations">on GitHub</a> at <a class="reference external" href="https://github.com/jbloom/pdmH1N1_HA_K166_mutations">https://github.com/jbloom/pdmH1N1_HA_K166_mutations</a>.</p>
+<p>The occurrence of different amino-acid identities at HA residues 166, 156, 157, and 158 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/genomes/FLU/FLU.html">Influenza Virus Resource</a> <a class="citation-reference" href="#bao2008" id="id1">[Bao2008]</a> as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at each residue of interest for each partition was calculated and plotted. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition.
+<a class="reference external" href="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> <a class="citation-reference" href="#drummond2013" id="id2">[Drummond2013]</a> was then used to sample from the posterior distribution of phylogenetic trees with reconstructed sequences at the nodes, after date stamping the sequences, using a <a class="reference external" href="http://www.ncbi.nlm.nih.gov/pubmed/1633570">JTT</a> <a class="citation-reference" href="#jones1992" id="id3">[Jones1992]</a> with a single rate category with an exponential prior, a strict molecular clock, and relatively uninformative coalescent-based prior over the tree. The figure shows a maximum clade credibility summary of the posterior distribution with branches colored according to the reconstructed amino-acid identity at site 166 with the highest posterior probability at their descendent nodes. The tree was visually rendered using <a class="reference external" href="http://tree.bio.ed.ac.uk/software/figtree/">FigTree</a>. The input data and computer code used for this analysis can be found <a class="reference external" href="https://github.com/jbloom/pdmH1N1_HA_K166_mutations">on GitHub</a> at <a class="reference external" href="https://github.com/jbloom/pdmH1N1_HA_K166_mutations">https://github.com/jbloom/pdmH1N1_HA_K166_mutations</a>.</p>
 </div>
 <div class="section" id="ha-numbering">
 <h1><a class="toc-backref" href="#id6">HA numbering</a></h1>
-<p>Various numbering schemes are in use for influenza HA (see <a class="reference external" href="https://github.com/jbloom/HA_numbering">HA_numbering</a>). The site examined here is:</p>
+<p>Various numbering schemes are in use for influenza HA (see <a class="reference external" href="https://github.com/jbloom/HA_numbering">HA_numbering</a>). The sites examined here are:</p>
 <ul class="simple">
-<li>Residue 166 in the H3 numbering scheme (for example, as in PDB <a class="reference external" href="http://www.rcsb.org/pdb/explore.do?structureId=4HMG">4HMG</a>).</li>
-<li>Residue 169 in the H1 numbering scheme (for example, as in PDB <a class="reference external" href="http://www.rcsb.org/pdb/explore.do?structureId=4JTV">4JTV</a>).</li>
-<li>Residue 180 in sequential 1, 2, ... numbering of typical pandemic H1N1 HAs beginning with 1 a the N-terminal methionine.</li>
+<li>Residue 166 in the H3 numbering scheme (for example, as in PDB <a class="reference external" href="http://www.rcsb.org/pdb/explore.do?structureId=4HMG">4HMG</a>), which is residue 169 in the H1 numbering scheme (for example, as in PDB <a class="reference external" href="http://www.rcsb.org/pdb/explore.do?structureId=4JTV">4JTV</a>) and residue 180 in sequential 1, 2, ... numbering of typical pandemic H1N1 HAs beginning with 1 at the N-terminal methionine.</li>
+<li>Residue 156 in H3 numbering, or 170 in sequential numbering.</li>
+<li>Residue 157 in H3 numbering, or 171 in sequential numbering.</li>
+<li>Residue 158 in H3 numbering, or 172 in sequential numbering.</li>
 </ul>
 </div>
 <div class="section" id="software-used">
@@ -422,7 +399,8 @@ The resulting aligned and translated protein sequences are written to the create
 <ol class="arabic" start="2">
 <li><p class="first">Get a subset of sequences for building the phylogenetic tree. Each year is broken into four partitions spanning months 1-3, 4-6, 7-9, and 10-12. For each partition, up to 10 sequences per year are randomly selected to be retained. These sequences are written to <em>selected_alignedproteins.fasta</em>. The reason for only keeping a subset of the sequence in this way is to have a sequence set small enough to build a phylogenetic tree without undue computational burden.</p>
 </li>
-<li><p class="first">Count the occurrences of different amino-acid identities at site 166 (H3 numbering, see <a class="reference internal" href="#ha-numbering">HA numbering</a>) for each of the date partitions. The results are written to the file <em>partitioncounts.txt</em>. Here is the raw data in that file:</p>
+<li><p class="first">Count the occurrences of different amino-acid identities at the sites of interest for each of the date partitions. The results for site N in sequential numbering (see <a class="reference internal" href="#ha-numbering">HA numbering</a>)  are written to the file <em>partitioncounts_siteN.txt</em>.</p>
+<p>Here is the raw data in the file for site 180 in sequential numbering (166 in H3 numbering), which is in the file <em>partitioncounts_site180.txt</em>:</p>
 <blockquote>
 <pre class="literal-block">
 #Counts of different amino acids in each date partiton.
@@ -455,19 +433,30 @@ The resulting aligned and translated protein sequences are written to the create
 </div>
 <div class="section" id="plotting-amino-acid-fractions">
 <h2><a class="toc-backref" href="#id11">Plotting amino-acid fractions</a></h2>
-<p>The <a class="reference external" href="http://www.python.org/">Python</a> script <em>makeplot.py</em> is used to make a PDF plot (with <a class="reference external" href="http://matplotlib.org/">matplotlib</a>) showing the frequencies of different amino acids at site 166 as a function of time. Run the script with:</p>
+<p>The <a class="reference external" href="http://www.python.org/">Python</a> script <em>makeplots.py</em> is used to make a PDF plot (with <a class="reference external" href="http://matplotlib.org/">matplotlib</a>) showing the frequencies of different amino acids at each site of interest as a function of time. Run the script with:</p>
 <pre class="literal-block">
-python makeplot.py
+python makeplots.py
 </pre>
-<p>The resulting plot divides each year into four partitions (months 1-3, 4-6, 7-9, 10-12) as in <em>partitioncounts.txt</em>. The frequencies of different amino acids at site 166 is then shown for each of these partitions.</p>
-<p>The created plot is <em>aafracs.pdf</em>. A JPG version (lower quality, created with <a class="reference external" href="http://www.imagemagick.org/script/index.php">ImageMagick convert</a> from the PDF) is also created as <em>aafracs.jpg</em>. Here is that plot:</p>
+<p>The resulting plot divides each year into four partitions (months 1-3, 4-6, 7-9, 10-12) as in <em>partitioncounts_siteN.txt</em> files. The frequencies of different amino acids at the site are then shown for each of these partitions.</p>
+<p>The created plots have names of the form <em>aafracs_site180.pdf</em> (again, using sequential rather than H3 numbering to name the sites). A JPG version (lower quality, created with <a class="reference external" href="http://www.imagemagick.org/script/index.php">ImageMagick convert</a> from the PDF) is also created as <em>aafracs_site180.jpg</em>. Here are those plots:</p>
 <blockquote>
 <div class="figure align-center">
-<img alt="aafracs.jpg" src="aafracs.jpg" style="width: 40%;" />
-<p class="caption">The plot <em>aafracs.jpg</em> showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in <em>aafracs.pdf</em>.</p>
+<img alt="aafracs_site180.jpg" src="aafracs_site180.jpg" style="width: 40%;" />
+<p class="caption">The plot <em>aafracs_site180.jpg</em> showing the frequencies of different amino acids at site 166 (H3 numbering, site 180 sequential numbering). A higher quality image of this same plot is in <em>aafracs_site180.pdf</em>. This plot is a graphical display of the data in <em>partitioncounts_site180.txt</em>.</p>
+</div>
+<div class="figure align-center">
+<img alt="aafracs_site170.jpg" src="aafracs_site170.jpg" style="width: 40%;" />
+<p class="caption">The plot <em>aafracs_site170.jpg</em> showing the frequencies of different amino acids at site 156 (H3 numbering, site 170 sequential numbering). A higher quality image of this same plot is in <em>aafracs_site170.pdf</em>. This plot is a graphical display of the data in <em>partitioncounts_site170.txt</em>.</p>
+</div>
+<div class="figure align-center">
+<img alt="aafracs_site171.jpg" src="aafracs_site171.jpg" style="width: 40%;" />
+<p class="caption">The plot <em>aafracs_site171.jpg</em> showing the frequencies of different amino acids at site 156 (H3 numbering, site 171 sequential numbering). A higher quality image of this same plot is in <em>aafracs_site171.pdf</em>. This plot is a graphical display of the data in <em>partitioncounts_site171.txt</em>.</p>
+</div>
+<div class="figure align-center">
+<img alt="aafracs_site172.jpg" src="aafracs_site172.jpg" style="width: 40%;" />
+<p class="caption">The plot <em>aafracs_site172.jpg</em> showing the frequencies of different amino acids at site 156 (H3 numbering, site 172 sequential numbering). A higher quality image of this same plot is in <em>aafracs_site172.pdf</em>. This plot is a graphical display of the data in <em>partitioncounts_site172.txt</em>.</p>
 </div>
 </blockquote>
-<p>This plot is a graphical display of the data in <em>partitioncounts.txt</em>.</p>
 </div>
 <div class="section" id="construction-of-phylogenetic-tree">
 <h2><a class="toc-backref" href="#id12">Construction of phylogenetic tree</a></h2>
@@ -499,7 +488,14 @@ convert -density 300 annotated_maxcredtree.pdf annotated_maxcredtree.jpg
 <blockquote>
 <div class="figure align-center">
 <img alt="annotated_maxcredtree.jpg" src="annotated_maxcredtree.jpg" style="width: 80%;" />
-<p class="caption">The plot <em>annotated_maxcredtree.jpg</em> showing the frequencies of different amino acids at site 166. A higher quality image of this same plot is in <em>annotated_maxcredtree.pdf</em>. In this plot, the residue is labeled as 180 since <a class="reference external" href="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> uses consecutive numbering rather than the H3 numbering scheme.</p>
+<p class="caption">The plot <em>annotated_maxcredtree.jpg</em> showing the frequencies of different amino acids at site 166 (H3 numbering). A higher quality image of this same plot is in <em>annotated_maxcredtree.pdf</em>. In this plot, the residue is labeled as 180 since <a class="reference external" href="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> uses consecutive numbering rather than the H3 numbering scheme.</p>
+</div>
+</blockquote>
+<p>A hand annotated version of the plot (using Adobe Illustrator) was also made recoloring the branches. Here is that plot:</p>
+<blockquote>
+<div class="figure align-center">
+<img alt="hand_annotated_maxcredtree.jpg" src="hand_annotated_maxcredtree.jpg" style="width: 80%;" />
+<p class="caption">The plot <em>hand_annotated_maxcredtree.jpg</em> showing the frequencies of different amino acids at site 166 (H3 numbering). A higher quality image of this same plot is in <em>hand_annotated_maxcredtree.pdf</em>. In this plot, the residue is labeled as 166 per the H3 numbering scheme.</p>
 </div>
 </blockquote>
 <table class="docutils citation" frame="void" id="drummond2013" rules="none">

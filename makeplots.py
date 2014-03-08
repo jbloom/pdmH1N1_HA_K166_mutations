@@ -5,15 +5,21 @@ Jesse Bloom, 2014."""
 
 import math
 import os
-import pylab
 import matplotlib
+matplotlib.use('pdf')
+import pylab
 import mapmuts.sequtils
 
 
-def main():
-    """Main body of script."""
-    infile = 'partitioncounts.txt'
-    plotfile = 'aafracs.pdf'
+def MakePlot(infile, plotfile, aa_order):
+    """Makes plots from input file *infile*.
+    
+    *infile* contains the amino-acid frequencies over time.
+    
+    *plotfile* is the name of the created PDF.
+    
+    *aa_order* is a list giving the order of amino acids from top to bottom.
+    """
     labelfrac = 0.01 # only label residues that rise above this level in legend
 
     # read input file
@@ -21,28 +27,6 @@ def main():
     colors = ['b', 'r', 'g', 'c', 'm', 'y'] + ['k'] * len(aminoacids) # order corresponds to aa_order
     colors = colors[ : len(aminoacids)]
     colors.reverse()
-    aa_order = [  # smallest to largest corresponds to plotting top to bottom
-            'K',
-            'Q',
-            'E',
-            'I',
-            'N',
-            'T',
-            'A',
-            'C',
-            'D',
-            'F',
-            'G',
-            'H',
-            'L',
-            'M',
-            'P',
-            'R',
-            'S',
-            'V',
-            'W',
-            'Y',
-            ]
     aa_order.reverse()
     aa_indices = dict([(aa_order[i], i) for i in range(len(aa_order))])
     lines = [line for line in open(infile).readlines() if not (line.isspace() or line[0] == '#')]
@@ -101,6 +85,14 @@ def main():
     print "Now making JPG version."
     jpgfile = "%s.jpg" % os.path.splitext(plotfile)[0]
     os.system('convert -density 500 %s %s' % (plotfile, jpgfile))
+
+
+def main():
+    """Main body of script."""
+    MakePlot('partitioncounts_site180.txt', 'aafracs_site180.pdf', ['K', 'Q', 'E', 'I', 'N', 'T', 'A', 'C', 'D', 'F', 'G', 'H', 'L', 'M', 'P', 'R', 'S', 'V', 'W', 'Y'])
+    MakePlot('partitioncounts_site170.txt', 'aafracs_site170.pdf', ['K', 'Q', 'E', 'I', 'N', 'T', 'A', 'C', 'D', 'F', 'G', 'H', 'L', 'M', 'P', 'R', 'S', 'V', 'W', 'Y'])
+    MakePlot('partitioncounts_site171.txt', 'aafracs_site171.pdf', ['K', 'R', 'E', 'I', 'N', 'T', 'A', 'C', 'D', 'F', 'G', 'H', 'L', 'M', 'P', 'Q', 'S', 'V', 'W', 'Y'])
+    MakePlot('partitioncounts_site172.txt', 'aafracs_site172.pdf', ['G', 'E', 'K', 'Q', 'I', 'N', 'T', 'A', 'C', 'D', 'F', 'H', 'L', 'M', 'P', 'R', 'S', 'V', 'W', 'Y'])
 
 if __name__ == '__main__':
     main() # run the script

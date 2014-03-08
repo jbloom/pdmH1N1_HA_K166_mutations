@@ -1,11 +1,20 @@
-"""Parse and aligns HA sequences to examine mutations at site 180.
+"""Parse and aligns HA sequences to examine mutations at specific sites.
 
-This script examines mutations at site 180 (sequential numbering, 166 in H3 numbering)
-of HA. Specifically, it:
+This script examines mutations at the following sites:
+
+    * 180 (sequential numbering, 166 in H3 numbering)
+
+    * 170 (sequential numbering, 156 in H3 numbering)
+
+    * 171 (sequential numbering, 157 in H3 numbering)
+
+    * 172 (sequential numbering, 158 in H3 numbering)
+
+It performs the following operations.
 
 1) Aligns the sequences
 
-2) Computes the frequencies of mutations at site 166 as a function of date.
+2) Computes the frequencies of mutations at specified sites as a function of date.
 
 3) Aligns a subset of sequences for phylogenetic analysis.
 
@@ -173,7 +182,7 @@ def main():
     random.seed(1)
 
     # input / output files and script parameters
-    siteindex = 179 # site of interest in consecutive 0, 1, ... numbering
+    sites = [180, 170, 171, 172] # sites in 1, 2, ... numbering
     yearpartition = 4 # partition each year into this many pieces
     nperpartition = 10 # keep this many per partition for selected sequences, plus ref sequence
     lastdate = 2014.0 # only keep sequences with dates <= this exact number
@@ -186,7 +195,7 @@ def main():
     anomalies = [line.strip() for line in open('AnomalousSequences.txt').readlines() if not line.isspace()] # anomalous sequences to exclude
     fullprotalignmentfile = 'all_alignedproteins.fasta' # created file
     selectedprotalignmentfile = 'selected_alignedproteins.fasta' # created file
-    partitioncounts = 'partitioncounts.txt' # created file
+    partitioncounts = 'partitioncounts_site%d.txt' # created file
 
     # get and clean the sequences
     refseq = mapmuts.sequtils.ReadFASTA(refseqfile)
@@ -261,19 +270,21 @@ def main():
     print "\nRetained %d selected proteins with at most %d per partition." % (len(selectedprots), nperpartition)
     print "Writing selected proteins to %s" % (selectedprotalignmentfile)
     mapmuts.sequtils.WriteFASTA(selectedprots, selectedprotalignmentfile)
-    print "\nWriting the partition counts to %s" % partitioncounts
     aminoacids = mapmuts.sequtils.AminoAcids()
     partitionedseqs = partitionedseqs.items()
     partitionedseqs.sort()
-    f = open(partitioncounts, 'w')
-    f.write('#Counts of different amino acids in each date partiton.\n#date\tstart\tend\tnseqs\t%s\n' % '\t'.join(['%s' % aa for aa in aminoacids]))
-    for (partition, seqlist) in partitionedseqs:
-        f.write('%.2f\t%.2f\t%.2f\t%d' % ((partition[0] + partition[1]) / 2.0, partition[0], partition[1], len(seqlist)))
-        counts = dict([(aa, 0) for aa in aminoacids])
-        for (head, seq) in seqlist:
-            counts[seq[siteindex]] += 1
-        f.write('\t%s\n' % '\t'.join(['%d' % counts[aa] for aa in aminoacids]))
-    f.close()
+    for site in sites:
+        outfile = partitioncounts % site
+        print "\nWriting the partition counts for site %d to %s" % (site, outfile)
+        f = open(outfile, 'w')
+        f.write('#Counts of different amino acids in each date partiton.\n#date\tstart\tend\tnseqs\t%s\n' % '\t'.join(['%s' % aa for aa in aminoacids]))
+        for (partition, seqlist) in partitionedseqs:
+            f.write('%.2f\t%.2f\t%.2f\t%d' % ((partition[0] + partition[1]) / 2.0, partition[0], partition[1], len(seqlist)))
+            counts = dict([(aa, 0) for aa in aminoacids])
+            for (head, seq) in seqlist:
+                counts[seq[site - 1]] += 1
+            f.write('\t%s\n' % '\t'.join(['%d' % counts[aa] for aa in aminoacids]))
+        f.close()
 
 
 
