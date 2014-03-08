@@ -13,7 +13,7 @@ This analysis was performed by `Jesse Bloom`_.
 
 Methods summary
 ----------------
-The occurrence of different amino-acid identities at HA residues 166, 156, 157, and 158 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the `Influenza Virus Resource`_ [Bao2008]_ as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at each residue of interest for each partition was calculated and plotted. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition. 
+The occurrence of different amino-acid identities at HA residues 166, 156, 157, and 158 (H3 numbering) was analyzed by downloading all full-length human pandemic H1N1 sequences present in the `Influenza Virus Resource`_ [Bao2008]_ as of Feb-23-2014. After purging sequences that were less than full length, contained ambiguous nucleotide identities, lacked full (year, month, day) isolation dates, or were otherwise anomalous, the sequences were aligned. Each calendar year was broken into four equal partitions beginning with January 1, the frequencies of different amino acids at each residue of interest for each partition was calculated and plotted. Only amino acids that reached a frequency of at least 1% in at least one of the year partitions are labeled in the legend to the plot. For construction of phylogenetic trees, the sequence set was randomly subsampled to 10 sequences per quarter-year partition. 
 `BEAST`_ [Drummond2013]_ was then used to sample from the posterior distribution of phylogenetic trees with reconstructed sequences at the nodes, after date stamping the sequences, using a `JTT`_ [Jones1992]_ with a single rate category with an exponential prior, a strict molecular clock, and relatively uninformative coalescent-based prior over the tree. The figure shows a maximum clade credibility summary of the posterior distribution with branches colored according to the reconstructed amino-acid identity at site 166 with the highest posterior probability at their descendent nodes. The tree was visually rendered using `FigTree`_. The input data and computer code used for this analysis can be found `on GitHub`_ at https://github.com/jbloom/pdmH1N1_HA_K166_mutations.
 
 HA numbering
@@ -99,6 +99,8 @@ The `Python`_ script *makeplots.py* is used to make a PDF plot (with `matplotlib
     python makeplots.py
 
 The resulting plot divides each year into four partitions (months 1-3, 4-6, 7-9, 10-12) as in *partitioncounts_siteN.txt* files. The frequencies of different amino acids at the site are then shown for each of these partitions.
+
+Only amino acids that rise to a frequency of at least 1% in at least one of the year partitions are listed in the legends to the plots.
 
 The created plots have names of the form *aafracs_site180.pdf* (again, using sequential rather than H3 numbering to name the sites). A JPG version (lower quality, created with `ImageMagick convert`_ from the PDF) is also created as *aafracs_site180.jpg*. Here are those plots:
 
